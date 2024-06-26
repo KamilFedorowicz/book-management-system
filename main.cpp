@@ -5,14 +5,20 @@
 #include <sstream>
 
 using namespace std;
+extern const int width_t=45;
+extern const int width_a=25;
+extern const int width_y=8;
+extern const int width=15;
+
 
 void print_header()
 {
-    std::cout << setw(3) << "  " << setw(10) << left << "Title" <<
-    setw(10) << "Author" <<
-    setw(10) << "Year" <<
-    setw(10) << "Category" <<
-    setw(10) << "Availability" << endl;
+    std::cout << setw(4) << "  " <<
+    setw(width_t) << left << "Title" <<
+    setw(width_a) << "Author" <<
+    setw(width_y) << "Year" <<
+    setw(width) << "Category" <<
+    setw(width) << "Availability" << endl;
 }
 
 
@@ -29,6 +35,7 @@ public:
     
     void rent_it(){ is_available=0;}
     void return_it(){ is_available=1;}
+    
     
 private:
     string title;
@@ -115,20 +122,36 @@ public:
         for(const Book& book: books)
         {
             
-            cout << num <<  ". " <<
-            setw(10) << left << book.get_title() <<
-            setw(10) << left << book.get_author() <<
-            setw(10) << left << book.get_year() <<
-            setw(10) << left << book.get_category() <<
-            setw(10) << left << book.get_availability() << std::endl;
+            cout << setw(2) << num <<  ". " <<
+            setw(width_t) << left << book.get_title() <<
+            setw(width_a) << left << book.get_author() <<
+            setw(width_y) << left << book.get_year() <<
+            setw(width) << left << book.get_category() <<
+            setw(width) << left << book.get_availability() << std::endl;
             
             num++;
         }
     }
     
-    void add_book(const Book& book)
+    void add_book()
     {
-        books.push_back(book);
+        string title, author, category;
+        int year;
+        bool availability;
+        
+        
+        cout << "Provide the book title: ";
+        std::getline(std::cin >> std::ws, title);
+        cout << "Provide the book author: ";
+        std::getline(std::cin >> std::ws, author);
+        cout << "Provide the book category: ";
+        std::getline(std::cin >> std::ws, category);
+        cout << "Provide the year that the book was published: ";
+        cin >> year;
+        
+        // the availability element is 1, meaning that when we add the book it is already available in the library
+        books.push_back(Book(title, author, year, category, 1));
+        cout << "Book added to the library!" << endl;
     }
     
     void delete_book()
@@ -194,12 +217,12 @@ public:
         {
             if(book.get_availability()==1)
             {
-                cout << num <<  ". " <<
-                setw(10) << left << book.get_title() <<
-                setw(10) << left << book.get_author() <<
-                setw(10) << left << book.get_year() <<
-                setw(10) << left << book.get_category() <<
-                setw(10) << left << book.get_availability() << std::endl;
+                cout << setw(2) << num <<  ". " <<
+                setw(width_t) << left << book.get_title() <<
+                setw(width_a) << left << book.get_author() <<
+                setw(width_y) << left << book.get_year() <<
+                setw(width) << left << book.get_category() <<
+                setw(width) << left << book.get_availability() << std::endl;
                 available_books.push_back(num);
             }
             
@@ -219,11 +242,12 @@ public:
             if(book.get_availability()==0)
             {
                 cout << num <<  ". " <<
-                setw(10) << left << book.get_title() <<
-                setw(10) << left << book.get_author() <<
-                setw(10) << left << book.get_year() <<
-                setw(10) << left << book.get_category() <<
-                setw(10) << left << book.get_availability() << std::endl;
+                setw(width_t) << left << book.get_title() <<
+                setw(width_a) << left << book.get_author() <<
+                setw(width_y) << left << book.get_year() <<
+                setw(width) << left << book.get_category() <<
+                setw(width) << left << book.get_availability() << std::endl;
+                
                 rented_books.push_back(num);
             }
             
@@ -242,19 +266,19 @@ public:
         cout << "Books written by " << author << ": " << endl;
         print_header();
         
-        int n = 1;
+        int num = 1;
         for(const Book& book : books)
         {
             if(book.get_author()==author)
             {
-                cout  << n << ". " <<
-                setw(10) << left << book.get_title() <<
-                setw(10) << left << book.get_author() <<
-                setw(10) << left << book.get_year() <<
-                setw(10) << left << book.get_category() <<
-                setw(10) << left << book.get_availability() << std::endl;
+                cout << setw(2) << num <<  ". " <<
+                setw(width_t) << left << book.get_title() <<
+                setw(width_a) << left << book.get_author() <<
+                setw(width_y) << left << book.get_year() <<
+                setw(width) << left << book.get_category() <<
+                setw(width) << left << book.get_availability() << std::endl;
                 
-                n++;
+                num++;
                 flag=true;
             }
         }
@@ -274,19 +298,19 @@ public:
         cout << "Books in the category " << category << ": " << endl;
         print_header();
         
-        int n=1;
+        int num=1;
         for(const Book& book : books)
         {
             if(book.get_category()==category)
             {
-                cout  << n << ". " <<
-                setw(10) << left << book.get_title() <<
-                setw(10) << left << book.get_author() <<
-                setw(10) << left << book.get_year() <<
-                setw(10) << left << book.get_category() <<
-                setw(10) << left << book.get_availability() << std::endl;
+                cout << setw(2) << num <<  ". " <<
+                setw(width_t) << left << book.get_title() <<
+                setw(width_a) << left << book.get_author() <<
+                setw(width_y) << left << book.get_year() <<
+                setw(width) << left << book.get_category() <<
+                setw(width) << left << book.get_availability() << std::endl;
                 
-                n++;
+                num++;
                 flag=true;
             }
         }
@@ -309,11 +333,11 @@ public:
         for(const Book& book: books2)
         {
             cout << num <<  ". "  <<
-            setw(10) << left << book.get_title() <<
-            setw(10) << left << book.get_author() <<
-            setw(10) << left << book.get_year() <<
-            setw(10) << left << book.get_category() <<
-            setw(10) << left << book.get_availability() << std::endl;
+            setw(width_t) << left << book.get_title() <<
+            setw(width_a) << left << book.get_author() <<
+            setw(width_y) << left << book.get_year() <<
+            setw(width) << left << book.get_category() <<
+            setw(width) << left << book.get_availability() << std::endl;
             num++;
         }
         
@@ -336,7 +360,18 @@ private:
     vector<Book> books;
 };
 
-
+void intro()
+{
+    cout << "1. Add a book." <<endl;
+    cout << "2. Remove a book." <<endl;
+    cout << "3. Display a book list." <<endl;
+    cout << "4. Rent a book." <<endl;
+    cout << "5. Return a book." <<endl;
+    cout << "6. Search by author." <<endl;
+    cout << "7. Search by cathegory." <<endl;
+    cout << "8. Search by year." <<endl;
+    cout << "9. Exit and save books." <<endl;
+}
 
 
 int main(int argc, const char * argv[]) {
@@ -344,20 +379,50 @@ int main(int argc, const char * argv[]) {
     Library library;
     library.load_books("books.csv");
     
-//    library.add_book(Book("title1", "author1", 21, "fiction", 1));
-//    library.add_book(Book("title2", "author2", 23, "sport", 1));
-//    library.add_book(Book("title3", "author2", 10, "sport", 1));
-//    library.add_book(Book("title4", "author2", 20, "science", 1));
+    cout << "Welcome to the book management program. Here are the choices:" << endl;
+
+    char ch;
     
-    library.display_books();
-
-
+    do {
+        intro();
+        
+        cout << "What do you want to do? ";
+        cin >> ch;
+        
+        switch(ch)
+        {
+            case '1':
+                library.add_book();
+                break;
+            case '2':
+                library.delete_book();
+                break;
+            case '3':
+                library.display_books();
+                cout << endl;
+                break;
+            case '4':
+                library.rent_book();
+                cout << "Book rented \n";
+                break;
+            case '5':
+                library.return_book();
+                cout << "Book returned \n";
+                break;
+            case '6':
+                library.search_by_author();
+                break;
+            case '7':
+                library.search_by_category();
+                break;
+            case '8':
+                library.sort_by_year();
+                break;
+        }
+            
+        
+    } while (ch!='9');
     
-    library.search_by_author();
-    library.search_by_category();
-    
-
-
     
     library.save_books("books.csv");
     
